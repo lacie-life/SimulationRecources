@@ -18,7 +18,7 @@ client.confirmConnection()
 
 rospy.init_node('writer', anonymous=True)
 bridge = CvBridge()
-bag = rosbag.Bag('H:/Github/SimulationResources/RosBag/NH-loop1-752x480.bag', 'w')
+bag = rosbag.Bag('H:/Dataset/RosBag/static.bag', 'w')
 
 ctime = Time.now()
 # ctime_sec = ctime.to_sec()
@@ -26,7 +26,7 @@ ctime = Time.now()
 count_img = 0
 count_IMU = 0
 interval_IMU = 0.005
-interval_img = 0.05
+interval_img = 0.25
 
 def getDroneArmed():
     thrust = client.getRotorStates().rotors[0]['thrust']

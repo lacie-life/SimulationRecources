@@ -34,27 +34,42 @@ if state.landed_state == airsim.LandedState.Landed:
 
 # AirSim uses NED coordinates so negative axis is up.
 # z of -5 is 5 meters above the original launch point.
-z = -5
+z = -3.5
 speed = 5 #m/s
 
 print("make sure we are hovering at {} meters...".format(-z))
-client.moveToPositionAsync(x=0,y=0,z=-3,velocity=0.5).join()
+client.moveToPositionAsync(x=0,y=0,z=-3.5,velocity=0.5).join()
 time.sleep(0.5)
-client.moveToPositionAsync(x=0,y=0,z=-5,velocity=0.5).join()
+client.moveToPositionAsync(x=0,y=0,z=-3,velocity=0.5).join()
 time.sleep(1.5)
+client.moveToPositionAsync(x=0,y=0,z=-3.5,velocity=0.5).join()
+time.sleep(0.5)
+client.rotateByYawRateAsync(yaw_rate=10, duration=2).join()
+time.sleep(0.5)
+client.rotateByYawRateAsync(yaw_rate=-10, duration=4).join()
+time.sleep(0.5)
+client.rotateByYawRateAsync(yaw_rate=10, duration=2).join()
+time.sleep(0.5)
+client.moveToPositionAsync(x=-1,y=0,z=-3.5,velocity=0.5).join()
+time.sleep(1.5)
+client.moveToPositionAsync(x=-1,y=0,z=-3.5,velocity=0.5).join()
+time.sleep(1.5)
+client.rotateByYawRateAsync(yaw_rate=10, duration=1).join()
+time.sleep(0.5)
+client.moveToPositionAsync(x=-1,y=-1,z=-3.5,velocity=0.5).join()
+time.sleep(0.5)
+
+
+# client.moveByVelocityBodyFrameAsync(vx=1,vy=0,vz=0,duration=10).join()
+# client.rotateByYawRateAsync(yaw_rate=10, duration=9).join()
 
 # this method is async and we are not waiting for the result since we are passing timeout_sec=0.
 
 print("flying on path...")
 
-path_NH_0=[airsim.Vector3r(125,0,z),
-       airsim.Vector3r(125,-130,z),
-       airsim.Vector3r(0,-130,z),
-       airsim.Vector3r(5,0,z),
-       airsim.Vector3r(125,0,z),
-       airsim.Vector3r(125,-130,z),
-       airsim.Vector3r(5,-130,z),
-        airsim.Vector3r(0, -20, z)]
+path_NH_0=[airsim.Vector3r(-5,0,z),
+       airsim.Vector3r(-5,2,z),
+       airsim.Vector3r(-5,-2,z)]
 
 # path_NH_0=[airsim.Vector3r(82,0,z),
 #        airsim.Vector3r(82,-130,z),
@@ -67,8 +82,8 @@ path_NH_0=[airsim.Vector3r(125,0,z),
 
 # path_NH_1=[airsim.Vector3r(125,0,z)]
 
-result = client.moveOnPathAsync(path_NH_0, velocity=speed, timeout_sec=600,
-        drivetrain=airsim.DrivetrainType.ForwardOnly, yaw_mode=airsim.YawMode(False,0), lookahead=20, adaptive_lookahead=1).join()
+# result = client.moveOnPathAsync(path_NH_0, velocity=speed, timeout_sec=600,
+#         drivetrain=airsim.DrivetrainType.ForwardOnly, yaw_mode=airsim.YawMode(False,0), lookahead=20, adaptive_lookahead=1).join()
 
 # for i in range(len(path_Park)):
 #     client.moveToPositionAsync(path_Park[i].x_val,
