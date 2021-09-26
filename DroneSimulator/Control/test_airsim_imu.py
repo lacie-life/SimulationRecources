@@ -18,15 +18,15 @@ client.confirmConnection()
 
 rospy.init_node('writer', anonymous=True)
 bridge = CvBridge()
-bag = rosbag.Bag('H:/Dataset/RosBag/staic3.bag', 'w')
+bag = rosbag.Bag('H:/Dataset/RosBag/dynamic2.bag', 'w')
 
 ctime = Time.now()
 # ctime_sec = ctime.to_sec()
 
 count_img = 0
 count_IMU = 0
-interval_IMU = 0.05
-interval_img = 0.25
+interval_IMU = 0.005
+interval_img = 0.05
 
 def getDroneArmed():
     thrust = client.getRotorStates().rotors[0]['thrust']
